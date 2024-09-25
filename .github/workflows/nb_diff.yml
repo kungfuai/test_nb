@@ -1,22 +1,19 @@
-name: nbdiff-web-exporter
-on: [push]
-
+name: nbdime-git-diff
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 jobs:
-  diff-action-test:
+  build:
     runs-on: ubuntu-latest
-    name: diff notebooks
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: diff notebooks
-        uses: kuromt/diff-notebooks@main
-        id: nbdiff-web-exporter-action
-        with:
-          remote: "origin/diff-notebooks"
-          export_dir: "./artifacts"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: diff-notebooks
-          path: ${{steps.nbdiff-web-exporter-action.outputs.export_dir}}
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9.13"
+    - name: nbdime-git-diff
+      uses: raybellwaves/nbdime-git-diff@0.0.6
