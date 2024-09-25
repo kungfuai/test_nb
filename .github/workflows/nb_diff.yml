@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: diff notebooks
-        uses: kuromt/diff-notebooks@main
+        uses: kuromt/diff-notebooks@v0.0.1
         id: nbdiff-web-exporter-action
         with:
           remote: "origin/diff-notebooks"
